@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "generator": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\project\\autoinstall\\generator\\config.example.txt"
+    }
+  }
+}
