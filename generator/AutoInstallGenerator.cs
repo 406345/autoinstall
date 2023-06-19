@@ -24,8 +24,10 @@ namespace generator
 
         public void Generate(string path = GEN_PE_NAME)
         {
-            File.Copy(ORI_PE_NAME, path, true);
-            var file = File.Open(path, FileMode.Open, FileAccess.ReadWrite);
+            var outputPath = Path.GetDirectoryName(path);
+            var outputFilename = Path.Combine(outputPath, DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss")+".exe");
+            File.Copy(ORI_PE_NAME, outputFilename, true);
+            var file = File.Open(outputFilename, FileMode.Open, FileAccess.ReadWrite);
             var fileSize = file.Length;
             file.Seek(fileSize, SeekOrigin.Begin);
             BinaryWriter bw = new BinaryWriter(file);

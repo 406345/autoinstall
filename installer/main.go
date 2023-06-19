@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -21,13 +22,24 @@ func findPESize(self *os.File, offset int64) int32 {
 
 func main() {
 	// test()
+	err := Deploy()
+	if err != nil {
+		log.Default().Printf("Error: %v", err)
+	} else {
+		log.Default().Print("All done")
+	}
 
+	tmp := ""
+	fmt.Scanf("%s\n", &tmp)
+}
+
+func Deploy() error {
 	var exe_path = os.Args[0]
 
 	var file, err = os.Open(exe_path)
 	if err != nil {
 		log.Default().Fatalln("open selft error: ", err)
-		return
+		return err
 	}
 
 	info, _ := os.Lstat(exe_path)
@@ -43,16 +55,18 @@ func main() {
 	log.Default().Print("Enter SSH account: ")
 	fmt.Scanf("%s\n", &sshAccount)
 	log.Default().Print("Enter SSH password: ")
-	fmt.Scanf("%s\n", &sshPassword)
+	reader := bufio.NewReader(os.Stdin)
+	sshPassword, _ = reader.ReadString('\n')
 
 	for i := 0; i < len(configs); i++ {
 		config := &configs[i]
 		err := RunConfig(config)
 		if err != nil {
-			log.Default().Printf("Error %v", err)
-			return
+			return err
 		}
 	}
+
+	return nil
 }
 
 func RunConfig(config *ConfigItem) error {
@@ -75,7 +89,6 @@ func RunConfig(config *ConfigItem) error {
 	})
 
 	if err != nil {
-		log.Default().Printf("Execute %s failed: %v", config.Command, err)
 		return err
 	}
 
