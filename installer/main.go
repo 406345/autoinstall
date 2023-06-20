@@ -1,10 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"os"
+
+	"github.com/nsf/termbox-go"
 )
 
 var EXE_SIZE uint64 = 4895232
@@ -21,8 +22,12 @@ func findPESize(self *os.File, offset int64) int32 {
 }
 
 func main() {
-	// test()
-	err := Deploy()
+	err := termbox.Init()
+	if err != nil {
+		return
+	}
+
+	err = Deploy()
 	if err != nil {
 		log.Default().Printf("Error: %v", err)
 	} else {
@@ -33,7 +38,59 @@ func main() {
 	fmt.Scanf("%s\n", &tmp)
 }
 
+func ReadInput(mask bool) (string, error) {
+	ret := ""
+
+	lastLen := 0
+	for {
+		ev := termbox.PollEvent()
+		if ev.Type == termbox.EventKey {
+			lastLen = len(ret)
+			if ev.Key == termbox.KeyEnter {
+				if mask {
+					for i := 0; i < len(ret); i++ {
+						if mask {
+							fmt.Print("*")
+						} else {
+							fmt.Print(string(rune(ret[i])))
+						}
+					}
+
+				} else {
+					fmt.Print(ret)
+				}
+				fmt.Print("\n")
+				return ret, nil
+			} else if ev.Key == termbox.KeyBackspace && len(ret) > 0 {
+				ret = ret[:len(ret)-1]
+			} else {
+				ret += string(ev.Ch)
+			}
+
+			for i := 0; i < len(ret); i++ {
+				if mask {
+					fmt.Print("*")
+				} else {
+					fmt.Print(string(rune(ret[i])))
+				}
+			}
+
+			for i := 0; i < lastLen-len(ret); i++ {
+				fmt.Print(" ")
+			}
+
+			fmt.Print("\r")
+			//log.Default().Printf("%v %v", ret, ev.Ch)
+		}
+	}
+
+	return "", nil
+}
+
 func Deploy() error {
+
+	defer termbox.Close()
+
 	var exe_path = os.Args[0]
 
 	var file, err = os.Open(exe_path)
@@ -51,12 +108,11 @@ func Deploy() error {
 	log.Default().Println("Config count: ", len(configs))
 
 	log.Default().Print("Enter SSH server: ")
-	fmt.Scanf("%s\n", &sshHost)
+	sshHost, _ = ReadInput(false)
 	log.Default().Print("Enter SSH account: ")
-	fmt.Scanf("%s\n", &sshAccount)
+	sshAccount, _ = ReadInput(false)
 	log.Default().Print("Enter SSH password: ")
-	reader := bufio.NewReader(os.Stdin)
-	sshPassword, _ = reader.ReadString('\n')
+	sshPassword, _ = ReadInput(true)
 
 	for i := 0; i < len(configs); i++ {
 		config := &configs[i]

@@ -12,6 +12,8 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+const PRGORESS_SIMBOL_SIZE = 20
+
 func SSHLogin(addr string, account string, password string) (*ssh.Client, error) {
 
 	if !strings.Contains(addr, ":") {
@@ -57,6 +59,8 @@ func SSHCommand(client *ssh.Client, item *ConfigItem, output func(string)) error
 	}
 	defer sess.Close()
 
+	log.Default().Printf("Execute command: %v", item.Command)
+
 	ret, err := sess.CombinedOutput("cd " + dir + ";" + item.Command)
 	if err != nil {
 		return err
@@ -98,6 +102,8 @@ func SSHUploadFile(client *ssh.Client, item *ConfigItem, progress func(int32)) e
 		return err
 	}
 
+	fmt.Printf("Upload files to %v\n", item.Dest)
+
 	go func() {
 		defer w.Close()
 		fmt.Fprintln(w, "C0644", item.FileBlock.Size, filepath.Base(item.Dest))
@@ -130,7 +136,20 @@ func SSHUploadFile(client *ssh.Client, item *ConfigItem, progress func(int32)) e
 			count += int64(reads)
 			w.Write(buffer[:reads])
 
-			log.Default().Printf("Upload %v/%v(%v%%)", count, item.FileBlock.Size, (uint64(count) * 100 / item.FileBlock.Size))
+			percent := (uint64(count) * 100 / item.FileBlock.Size)
+			fmt.Printf("Progress: ")
+
+			finished := int(float32(percent) / float32(100) * PRGORESS_SIMBOL_SIZE)
+			for i := 0; i < finished; i++ {
+				fmt.Printf("+")
+			}
+
+			for i := 0; i < PRGORESS_SIMBOL_SIZE-finished; i++ {
+				fmt.Printf("-")
+			}
+			fmt.Printf(" (%2d%%)", percent)
+
+			fmt.Print("\r")
 
 			if progress != nil {
 				v := count * int64(100) / int64(item.FileBlock.Size)
@@ -141,6 +160,8 @@ func SSHUploadFile(client *ssh.Client, item *ConfigItem, progress func(int32)) e
 		if progress != nil {
 			progress(int32(100))
 		}
+
+		fmt.Print("\n")
 
 		fmt.Fprint(w, "\x00")
 		sign <- io.EOF
