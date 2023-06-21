@@ -6,6 +6,27 @@ import (
 	"os"
 )
 
+func readBytes(file *os.File) ([]byte, error) {
+	len, err := readUint32(file)
+
+	if err != nil {
+		return nil, errors.New("read string failed")
+	}
+
+	if len == 0 {
+		return nil, nil
+	}
+
+	var content = make([]byte, len)
+	reads, err := file.Read(content)
+	// file.Seek(int64(len), 1)
+	if err != nil || reads == 0 {
+		return nil, errors.New("read content failed")
+	}
+
+	return content, nil
+}
+
 func readString(file *os.File) (string, error) {
 	len, err := readUint16(file)
 

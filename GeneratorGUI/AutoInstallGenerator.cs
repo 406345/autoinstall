@@ -69,28 +69,33 @@ namespace GeneratorGUI
             {
                 Console.WriteLine("Writing " + config.Name);
 
-                bw.Write((UInt16)config.Name.Length);
-                bw.Write(Encoding.UTF8.GetBytes(config.Name));
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(config);
+                var buffer = Encoding.UTF8.GetBytes(json);
+                bw.Write((UInt32)buffer.Length);
+                bw.Write(buffer); 
 
-                if (config.Command == null)
-                {
-                    bw.Write((UInt16)0);
-                }
-                else
-                {
-                    bw.Write((UInt16)config.Command.Length);
-                    bw.Write(Encoding.UTF8.GetBytes(config.Command));
-                }
+                //bw.Write((UInt16)config.Name.Length);
+                //bw.Write(Encoding.UTF8.GetBytes(config.Name));
 
-                if (config.Remote == null)
-                {
-                    bw.Write((UInt16)0);
-                }
-                else
-                {
-                    bw.Write((UInt16)config.Remote.Length);
-                    bw.Write(Encoding.UTF8.GetBytes(config.Remote));
-                }
+                //if (config.Command == null)
+                //{
+                //    bw.Write((UInt16)0);
+                //}
+                //else
+                //{
+                //    bw.Write((UInt16)config.Command.Length);
+                //    bw.Write(Encoding.UTF8.GetBytes(config.Command));
+                //}
+
+                //if (config.Remote == null)
+                //{
+                //    bw.Write((UInt16)0);
+                //}
+                //else
+                //{
+                //    bw.Write((UInt16)config.Remote.Length);
+                //    bw.Write(Encoding.UTF8.GetBytes(config.Remote));
+                //}
 
                 WriteFileBlock(config, bw);
             }

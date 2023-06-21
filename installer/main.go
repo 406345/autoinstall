@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -21,6 +22,42 @@ func findPESize(self *os.File, offset int64) int32 {
 	return int32(peSize)
 }
 
+func testSSH() error {
+	client, err := SSHLogin("10.10.207.172", "khidi", "khidi@2023")
+
+	if err != nil {
+		log.Default().Printf("%v", err)
+	}
+
+	sess, err := client.NewSession()
+
+	if err != nil {
+		return err
+	}
+	defer sess.Close()
+
+	sr, _ := sess.StdoutPipe()
+	sw, _ := sess.StdinPipe()
+	reader := bufio.NewReader(sr)
+	writer := bufio.NewWriter(sw)
+
+	writer.WriteString("cd /tmp/test2\n")
+	writer.WriteString("ll\n")
+	writer.WriteString("exit 0\n")
+	sess.Run("/usr/bin/sh")
+
+	for {
+		str, err := reader.ReadString('\n')
+
+		if err != nil {
+			break
+		}
+
+		log.Default().Printf("%v", str)
+	}
+
+	return nil
+}
 func main() {
 	err := termbox.Init()
 	if err != nil {
@@ -86,7 +123,6 @@ func ReadInput(mask bool) (string, error) {
 
 	return "", nil
 }
-
 func Deploy() error {
 
 	defer termbox.Close()
@@ -109,10 +145,6 @@ func Deploy() error {
 
 	log.Default().Print("Enter SSH server: ")
 	sshHost, _ = ReadInput(false)
-	log.Default().Print("Enter SSH account: ")
-	sshAccount, _ = ReadInput(false)
-	log.Default().Print("Enter SSH password: ")
-	sshPassword, _ = ReadInput(true)
 
 	for i := 0; i < len(configs); i++ {
 		config := &configs[i]
@@ -126,7 +158,8 @@ func Deploy() error {
 }
 
 func RunConfig(config *ConfigItem) error {
-	client, err := SSHLogin(sshHost, sshAccount, sshPassword)
+	log.Default().Printf("Using username: %v", config.User)
+	client, err := SSHLogin(sshHost, config.User, config.Pwd)
 	if err != nil {
 		log.Default().Println("Failed to create ssh connection")
 		return err
@@ -141,7 +174,7 @@ func RunConfig(config *ConfigItem) error {
 	}
 
 	err = SSHCommand(client, config, func(s string) {
-		log.Default().Printf("%s\n%s", config.Command, s)
+		log.Default().Printf(" < %s", s)
 	})
 
 	if err != nil {

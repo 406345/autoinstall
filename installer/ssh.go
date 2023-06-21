@@ -46,30 +46,36 @@ func SSHCommand(client *ssh.Client, item *ConfigItem, output func(string)) error
 		return errors.New("config is null")
 	}
 
-	dir := filepath.Dir(item.Dest)
-	dir = strings.Replace(dir, "\\", "/", -1)
+	dir := "/"
+	if item.Dest != "" {
+		dir = filepath.Dir(item.Dest)
+		dir = strings.Replace(dir, "\\", "/", -1)
+	}
 
-	if item.Command == "" {
+	if len(item.Command) == 0 {
 		return nil
 	}
 
-	sess, err := client.NewSession()
-	if err != nil {
-		return err
+	for i := 0; i < len(item.Command); i++ {
+		sess, err := client.NewSession()
+
+		if err != nil {
+			return err
+		}
+		defer sess.Close()
+
+		cmd := item.Command[i]
+
+		log.Default().Printf(" > %v", cmd)
+		ret, err := sess.CombinedOutput(fmt.Sprintf("cd %v;%v", dir, cmd))
+		if err != nil {
+			return err
+		}
+
+		if output != nil {
+			output(string(ret))
+		}
 	}
-	defer sess.Close()
-
-	log.Default().Printf("Execute command: %v", item.Command)
-
-	ret, err := sess.CombinedOutput("cd " + dir + ";" + item.Command)
-	if err != nil {
-		return err
-	}
-
-	if output != nil {
-		output(string(ret))
-	}
-
 	return nil
 }
 

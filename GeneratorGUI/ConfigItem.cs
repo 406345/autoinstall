@@ -8,14 +8,18 @@ using System.Threading.Tasks;
 namespace GeneratorGUI
 {
     internal class ConfigItem
-    {
-        [JsonPropertyName("name")]
+    { 
+        [Newtonsoft.Json.JsonProperty("name")]
         public string Name { get; set; }
-        [JsonPropertyName("command")]
-        public string Command { get; set; }
-        [JsonPropertyName("file")]
+        [Newtonsoft.Json.JsonProperty("command")]
+        public List<string> Command { get; set; } = new ();
+        [Newtonsoft.Json.JsonProperty("file")]
         public string File { get; set; }
-        [JsonPropertyName("remote")]
+        [Newtonsoft.Json.JsonProperty("remote")]
         public string Remote { get; set; }
+        [Newtonsoft.Json.JsonProperty("user")]
+        public string User { get; set; }
+        [Newtonsoft.Json.JsonProperty("password")]
+        public string Password { get; set; }
     }
 }

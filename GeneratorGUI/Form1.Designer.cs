@@ -55,6 +55,10 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.删除ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.button1 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.tbUser = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tbPassword = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -66,7 +70,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(80, 30);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(788, 25);
+            this.comboBox1.Size = new System.Drawing.Size(839, 25);
             this.comboBox1.TabIndex = 0;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -88,7 +92,7 @@
             this.listItem.ItemHeight = 17;
             this.listItem.Location = new System.Drawing.Point(8, 61);
             this.listItem.Name = "listItem";
-            this.listItem.Size = new System.Drawing.Size(195, 514);
+            this.listItem.Size = new System.Drawing.Size(195, 531);
             this.listItem.TabIndex = 2;
             this.listItem.SelectedIndexChanged += new System.EventHandler(this.listItem_SelectedIndexChanged);
             // 
@@ -123,7 +127,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(229, 71);
+            this.label2.Location = new System.Drawing.Point(237, 71);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 17);
             this.label2.TabIndex = 3;
@@ -132,7 +136,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(254, 109);
+            this.label3.Location = new System.Drawing.Point(253, 182);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(30, 17);
             this.label3.TabIndex = 4;
@@ -141,7 +145,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(229, 151);
+            this.label4.Location = new System.Drawing.Point(228, 224);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 17);
             this.label4.TabIndex = 5;
@@ -150,7 +154,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(213, 193);
+            this.label5.Location = new System.Drawing.Point(212, 266);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 17);
             this.label5.TabIndex = 6;
@@ -162,39 +166,39 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(290, 68);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(578, 23);
-            this.tbName.TabIndex = 7;
+            this.tbName.Size = new System.Drawing.Size(629, 23);
+            this.tbName.TabIndex = 1;
             // 
             // tbFile
             // 
             this.tbFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbFile.Location = new System.Drawing.Point(290, 106);
+            this.tbFile.Location = new System.Drawing.Point(289, 179);
             this.tbFile.Name = "tbFile";
             this.tbFile.ReadOnly = true;
-            this.tbFile.Size = new System.Drawing.Size(578, 23);
-            this.tbFile.TabIndex = 8;
+            this.tbFile.Size = new System.Drawing.Size(629, 23);
+            this.tbFile.TabIndex = 4;
             this.tbFile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbFile_MouseClick);
             // 
             // tbRemote
             // 
             this.tbRemote.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbRemote.Location = new System.Drawing.Point(291, 148);
+            this.tbRemote.Location = new System.Drawing.Point(290, 221);
             this.tbRemote.Name = "tbRemote";
-            this.tbRemote.Size = new System.Drawing.Size(577, 23);
-            this.tbRemote.TabIndex = 9;
+            this.tbRemote.Size = new System.Drawing.Size(628, 23);
+            this.tbRemote.TabIndex = 5;
             // 
             // tbCommand
             // 
             this.tbCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbCommand.Location = new System.Drawing.Point(291, 190);
+            this.tbCommand.Location = new System.Drawing.Point(290, 263);
             this.tbCommand.Multiline = true;
             this.tbCommand.Name = "tbCommand";
-            this.tbCommand.Size = new System.Drawing.Size(577, 361);
-            this.tbCommand.TabIndex = 10;
+            this.tbCommand.Size = new System.Drawing.Size(628, 303);
+            this.tbCommand.TabIndex = 6;
             // 
             // menuStrip1
             // 
@@ -203,7 +207,7 @@
             this.配置ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(880, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(931, 25);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -220,19 +224,19 @@
             // 生成部署包ToolStripMenuItem
             // 
             this.生成部署包ToolStripMenuItem.Name = "生成部署包ToolStripMenuItem";
-            this.生成部署包ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.生成部署包ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.生成部署包ToolStripMenuItem.Text = "生成部署包";
             this.生成部署包ToolStripMenuItem.Click += new System.EventHandler(this.生成部署包ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(133, 6);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.退出ToolStripMenuItem.Text = "退出";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -250,44 +254,86 @@
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.保存ToolStripMenuItem.Text = "保存";
             this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
-            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.刷新ToolStripMenuItem.Text = "刷新";
             this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(97, 6);
             // 
             // 删除ToolStripMenuItem1
             // 
             this.删除ToolStripMenuItem1.Name = "删除ToolStripMenuItem1";
-            this.删除ToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.删除ToolStripMenuItem1.Size = new System.Drawing.Size(100, 22);
             this.删除ToolStripMenuItem1.Text = "删除";
             this.删除ToolStripMenuItem1.Click += new System.EventHandler(this.删除ToolStripMenuItem1_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(793, 557);
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(844, 572);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 12;
+            this.button1.TabIndex = 8;
             this.button1.Text = "保存";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(243, 108);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(47, 17);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "User：";
+            // 
+            // tbUser
+            // 
+            this.tbUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbUser.Location = new System.Drawing.Point(290, 105);
+            this.tbUser.Name = "tbUser";
+            this.tbUser.Size = new System.Drawing.Size(629, 23);
+            this.tbUser.TabIndex = 2;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(216, 145);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(76, 17);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Password：";
+            // 
+            // tbPassword
+            // 
+            this.tbPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbPassword.Location = new System.Drawing.Point(290, 142);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.Size = new System.Drawing.Size(628, 23);
+            this.tbPassword.TabIndex = 3;
+            this.tbPassword.UseSystemPasswordChar = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(880, 592);
+            this.ClientSize = new System.Drawing.Size(931, 607);
+            this.Controls.Add(this.tbPassword);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.tbUser);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tbCommand);
             this.Controls.Add(this.tbRemote);
@@ -342,5 +388,11 @@
         private ToolStripMenuItem 删除ToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem3;
         private ToolStripMenuItem 删除ToolStripMenuItem1;
+        private Label label6;
+        private TextBox textBox1;
+        private Label label7;
+        private TextBox textBox2;
+        private TextBox tbUser;
+        private TextBox tbPassword;
     }
 }

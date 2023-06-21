@@ -130,9 +130,11 @@ namespace GeneratorGUI
             if(index < 0) { return; }
 
             tbName.Text = configItems[index].Name;
-            tbCommand.Text = configItems[index].Command;
+            tbCommand.Lines = configItems[index].Command == null ? null : configItems[index].Command.ToArray();
             tbRemote.Text = configItems[index].Remote;
             tbFile.Text = configItems[index].File;
+            tbPassword.Text = configItems[index].Password;
+            tbUser.Text = configItems[index].User;
         }
 
         private bool SaveModify()
@@ -155,7 +157,15 @@ namespace GeneratorGUI
             configItems[index].Name = tbName.Text;
             configItems[index].Remote = tbRemote.Text;
             configItems[index].File = tbFile.Text;
-            configItems[index].Command = tbCommand.Text;
+            configItems[index].User = tbUser.Text;
+            configItems[index].Password= tbPassword.Text;
+
+            if (configItems[index].Command == null)
+            {
+                configItems[index].Command = new List<string>();
+            }
+            configItems[index].Command.Clear();
+            configItems[index].Command.AddRange(tbCommand.Lines);
 
             configManager.SaveConfig(comboBox1.Text,configItems);
 

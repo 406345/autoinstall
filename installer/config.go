@@ -1,13 +1,17 @@
 package main
 
 import (
+	"encoding/json"
+	"log"
 	"os"
 )
 
 type ConfigItem struct {
-	Name      string
-	Command   string
-	Dest      string
+	Name      string   `json:"name"`
+	Command   []string `json:"command"`
+	Dest      string   `json:"remote"`
+	User      string   `json:"user"`
+	Pwd       string   `json:"password"`
 	FileBlock FileBlockOffset
 }
 
@@ -34,29 +38,16 @@ func ReadConfig(file *os.File) []ConfigItem {
 	var ret = make([]ConfigItem, count)
 
 	for i := uint32(0); i < count; i++ {
-		tmp, err := readString(file)
+		jsonBuffer, err := readBytes(file)
 		if err != nil {
 			return nil
 		}
 
-		ret[i].Name = tmp
+		log.Default().Printf("%v", string(jsonBuffer))
 
-		tmp, err = readString(file)
+		json.Unmarshal(jsonBuffer, &ret[i])
 
-		if err != nil {
-			return nil
-		}
-
-		ret[i].Command = tmp
-
-		tmp, err = readString(file)
-
-		if err != nil {
-			return nil
-		}
-
-		ret[i].Dest = tmp
-
+		// Read fileblock
 		size, err := readUint64(file)
 		if err != nil {
 			return nil
