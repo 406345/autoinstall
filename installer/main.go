@@ -122,8 +122,22 @@ func Deploy() error {
 }
 
 func RunConfig(config *ConfigItem) error {
+
+	if config.User == "" {
+		log.Default().Print("Input SSH user: ")
+		user, _ := ReadInput(false)
+		config.User = user
+	}
+
+	if config.Pwd == "" {
+		log.Default().Print("Input SSH password: ")
+		pwd, _ := ReadInput(true)
+		config.Pwd = pwd
+	}
+
 	log.Default().Printf("Login server with %v", config.User)
 	client, err := SSHLogin(sshHost, config.User, config.Pwd)
+
 	if err != nil {
 		log.Default().Println("Failed to create ssh connection")
 		return err
