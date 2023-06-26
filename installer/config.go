@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"log"
 	"os"
 )
 
@@ -42,8 +41,6 @@ func ReadConfig(file *os.File) []ConfigItem {
 		if err != nil {
 			return nil
 		}
-
-		log.Default().Printf("%v", string(jsonBuffer))
 
 		json.Unmarshal(jsonBuffer, &ret[i])
 
